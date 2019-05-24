@@ -12,9 +12,8 @@ Param(
     [String[]]
     $ResourceTypesToRemove = ("Microsoft.Web/sites","Microsoft.Sql/servers"),
 
-    [Parameter(Mandatory = $false, ParameterSetName = "Confirmed")]
-    [Boolean]
-    $Confirmed = $false
+    [Switch]
+    $Confirmed
 )
 
 Function Write-Log {
