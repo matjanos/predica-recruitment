@@ -12,7 +12,7 @@ This is a simple Powershell script which removes given resources (by default Web
 The script looks for all resources of the given types in a fiven resource grup and removes them.
 
 .EXAMPLE
-./RemoveResourcesInGroup.ps1 -ResourceGroupName predica-rg -ResourceTypesToRemove @("Microsoft.Web/sites","Microsoft.Storage/storageAccounts") -Force
+./RemoveResourcesInGroup.ps1 -ResourceGroupName predica-rg -Force -ResourceTypesToRemove 'Microsoft.Web/sites','Microsoft.Storage/storageAccounts'
 
 #>
 
