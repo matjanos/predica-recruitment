@@ -4,17 +4,17 @@
 # 24/05/2019
 
 Param(
-    [Parameter(Mandatory=$True)]
+    [Parameter(Mandatory = $True)]
     [String]
     $ResourceGroupName,
 
-    [Parameter]
-    [String[]]
-    $ResourceTypesToRemove = ("Microsoft.Web/sites","Microsoft.Sql/servers"),
-
-    [Parameter]
+    [Parameter(Mandatory = $False)]
     [Switch]
-    $Force
+    $Force,
+
+    [Parameter(ValueFromRemainingArguments=$True)]
+    [String[]]
+    $ResourceTypesToRemove = ("Microsoft.Web/sites","Microsoft.Sql/servers")
 )
 
 Function Write-Log {
@@ -47,7 +47,7 @@ Function Write-Log {
 
 #Connect-AzAccount
 
-Write-Log "Getting resources to be removed in group $RemovedResourceGroupName"
+Write-Log "Getting resources of types: $ResourceTypesToRemove to be removed in group $RemovedResourceGroupName"
 $resourcesToRemove = @()
 ForEach ($resourceType in $ResourceTypesToRemove){
     $resourcesToRemove += Get-AzureRmResource -ResourceType $resourceType -ResourceGroupName Predica | select -Property ResourceType,  Name, Id
