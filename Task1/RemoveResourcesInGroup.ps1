@@ -4,14 +4,15 @@
 # 24/05/2019
 
 Param(
-    [Parameter(Mandatory = $true,ParameterSetName = "ResourceGroupName")]
+    [Parameter(Mandatory=$True)]
     [String]
     $ResourceGroupName,
 
-    [Parameter(Mandatory = $false, ParameterSetName = "ResourceTypesToRemove")]
+    [Parameter]
     [String[]]
     $ResourceTypesToRemove = ("Microsoft.Web/sites","Microsoft.Sql/servers"),
 
+    [Parameter]
     [Switch]
     $Force
 )
