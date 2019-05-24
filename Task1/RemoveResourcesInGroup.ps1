@@ -3,6 +3,19 @@
 # Jakub Matjanowski
 # 24/05/2019
 
+<#
+
+.SYNOPSIS
+This is a simple Powershell script which removes given resources (by default Web apps and Azure SQL databases) for the given resource group.
+
+.DESCRIPTION
+The script looks for all resources of the given types in a fiven resource grup and removes them.
+
+.EXAMPLE
+./RemoveResourcesInGroup.ps1 -ResourceGroupName predica-rg -ResourceTypesToRemove @("Microsoft.Web/sites","Microsoft.Storage/storageAccounts") -Force
+
+#>
+
 Param(
     [Parameter(Mandatory = $True)]
     [String]
