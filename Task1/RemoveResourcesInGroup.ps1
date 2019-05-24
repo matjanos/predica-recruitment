@@ -13,7 +13,7 @@ Param(
     $ResourceTypesToRemove = ("Microsoft.Web/sites","Microsoft.Sql/servers"),
 
     [Switch]
-    $Confirmed
+    $Force
 )
 
 Function Write-Log {
@@ -52,17 +52,15 @@ ForEach ($resourceType in $ResourceTypesToRemove){
     $resourcesToRemove += Get-AzureRmResource -ResourceType $resourceType -ResourceGroupName Predica | select -Property ResourceType,  Name, Id
 }
 
-Write-Log  $resourcesToRemove
-
 Write-Log "Removing..."
-
 
 ForEach ($resource in $resourcesToRemove){
     try{
         Write-Log -Message "Removing $resource"
-        Remove-AzureRmResource -ResourceId $resource.Id -Confirmed $Confirmed
+        Remove-AzureRmResource -ResourceId $resource.Id -Force:$Force.IsPresent
     }
     catch{
         Write-Log "Unable to remove resource $resource." -Level "ERROR"
+        Write-Log $_
     }
 }
