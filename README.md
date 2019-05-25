@@ -17,3 +17,23 @@ You also need to have certificate for Service Principal installed in order to us
 * **ApplicationId** - AD application ID
 * **Force** (*optional*) - to enforce deletion without asking (used for automated process)
 * **ResourceTypesToRemove** (*optional*) - list of resource types. By default following are used: `Microsoft.Web/sites`, `Microsoft.Sql/servers`
+
+## Task 2
+[![Build Status](https://travis-ci.com/matjanos/predica-recruitment.svg?branch=master)](https://travis-ci.com/matjanos/predica-recruitment)
+
+The task was to create a simple web API in ASP .NET Core which returns simple list of cars. As next step it should be build with Docker and pushed to private Docker registry on Azure (Azure Container Registry). Finally, generated image is supposed to be automatically fetched by Azure Container Instances service and deployed to the cloud.
+
+### Modus operandi
+
+I've created a simple app using dotnet CLI yo make a sample ASP Web API in .NET Core 2.1. I've done some simple changes: created a new model of `Car` and added `CarController`, which returns hardcoded list of 3 cars.
+
+Next, created a `Dockerfile` which defines the image: exposes ports, sets environment variables and prepare executables.
+
+I've decided to use TravisCI in order to build the .NET project and the Docker image. `.travis-ci.yml` defines the build environment and all steps. All builds can be viewed here: https://travis-ci.com/matjanos/predica-recruitment
+
+All build envinment variables are defined on TravisCI portal and describe connection details to Azure Container Registry on my private Azure subscription.
+
+On the same subscription I've defined Azure Container Instances service which is eventually populated with the image created in the previous step.
+
+### Result
+`http://52.142.93.206/api/cars`
