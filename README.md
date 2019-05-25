@@ -17,3 +17,9 @@ You also need to have certificate for Service Principal installed in order to us
 * **ApplicationId** - AD application ID
 * **Force** (*optional*) - to enforce deletion without asking (used for automated process)
 * **ResourceTypesToRemove** (*optional*) - list of resource types. By default following are used: `Microsoft.Web/sites`, `Microsoft.Sql/servers`
+
+## Task 2
+The task was to create a simple web API in ASP .NET Core which returns simple list of cars.
+
+### Result
+`http://52.142.93.206/api/cars`
