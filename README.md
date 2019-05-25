@@ -19,7 +19,7 @@ You also need to have certificate for Service Principal installed in order to us
 * **ResourceTypesToRemove** (*optional*) - list of resource types. By default following are used: `Microsoft.Web/sites`, `Microsoft.Sql/servers`
 
 ## Task 2
-[![Build Status](https://travis-ci.org/IsidoreSoftware/MagicMirror.svg?branch=master)](https://travis-ci.org/IsidoreSoftware/MagicMirror)
+[![Build Status](https://travis-ci.com/matjanos/predica-recruitment.svg?branch=master)](https://travis-ci.com/matjanos/predica-recruitment)
 
 The task was to create a simple web API in ASP .NET Core which returns simple list of cars.
 
