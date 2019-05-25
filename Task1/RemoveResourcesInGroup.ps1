@@ -17,9 +17,21 @@ The script looks for all resources of the given types in a fiven resource grup a
 #>
 
 Param(
-    [Parameter(Mandatory = $True)]
+    [Parameter(Mandatory= $True)]
     [String]
     $ResourceGroupName,
+
+    [Parameter(Mandatory= $True)]
+    [String]
+    $TenantId,
+
+    [Parameter(Mandatory= $True)]
+    [String]
+    $CertThumbprint,
+
+    [Parameter(Mandatory= $True)]
+    [String]
+    $ApplicationId,
 
     [Parameter(Mandatory = $False)]
     [Switch]
@@ -50,30 +62,48 @@ Function Write-Log {
 
     $Stamp = (Get-Date).toString("yyyy/MM/dd HH:mm:ss")
     $Line = "$Stamp $Level $Message"
-    If($logfile) {
+    if($logfile) {
         Add-Content $logfile -Value $Line
     }
-    Else {
+    else {
         Write-Output $Line
     }
 }
 
-#Connect-AzAccount
+try
+{
+    Connect-AzAccount -ServicePrincipal -TenantId $TenantId -CertificateThumbprint $CertThumbprint -ApplicationId $ApplicationId
+}
+catch
+{
+    Write-Log "Unable to connect to the Azure Cloud: $_" -Level "ERROR"
+    exit
+}
 
 Write-Log "Getting resources of types: $ResourceTypesToRemove to be removed in group $RemovedResourceGroupName"
 $resourcesToRemove = @()
-ForEach ($resourceType in $ResourceTypesToRemove){
+ForEach ($resourceType in $ResourceTypesToRemove)
+{
     $resourcesToRemove += Get-AzureRmResource -ResourceType $resourceType -ResourceGroupName Predica | select -Property ResourceType,  Name, Id
 }
 
-Write-Log "Removing..."
+if($resourcesToRemove.count -eq 0)
+{
+    Write-Log "No resources to be removed." -Level "WARN"
+    exit
+}
 
-ForEach ($resource in $resourcesToRemove){
-    try{
+Write-Log "Removing resources..."
+
+ForEach ($resource in $resourcesToRemove)
+{
+    try
+    {
         Write-Log -Message "Removing $resource"
         Remove-AzureRmResource -ResourceId $resource.Id -Force:$Force.IsPresent
     }
-    catch{
+    catch
+    {
         Write-Log "Unable to remove resource $resource." -Level "ERROR"
         Write-Log $_
     }
