@@ -9,14 +9,14 @@ branches:
   only:
     - master
 before_install:
-  - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD predica.azurecr.io
+  - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD $DOCKER_REGISTRY_HOST
 script:
   - dotnet build -c Release ./Task2/Task2.csproj
   - dotnet publish -c Release ./Task2/Task2.csproj
   - docker build -t predica.recruitment.api:$DOCKER_TAG ./Task2
 after_success:
   - docker tag predica.recruitment.api:$DOCKER_TAG $DOCKER_USERNAME/predica.recruitment.api:$DOCKER_TAG
-  - docker push $DOCKER_USERNAME/predica.recruitment.api:$DOCKER_TAG
+  - docker push $DOCKER_REGISTRY_HOST/$DOCKER_USERNAME/predica.recruitment.api:$DOCKER_TAG
 notifications:
   email:
     on_success: never
