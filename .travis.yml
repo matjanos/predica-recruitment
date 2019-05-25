@@ -7,9 +7,9 @@ branches:
   only:
     - master
 script:
-  - dotnet build -c Release
+  - dotnet build -c Release ./Task2/Task2.csproj
 after_success:
-  - dotnet publish -c Release
+  - dotnet publish -c Release ./Task2/Task2.csproj
 notifications:
   email:
     on_success: never
