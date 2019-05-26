@@ -12,7 +12,7 @@ You also need to have certificate for Service Principal installed in the host ce
 ### Parameters
 
 * **ResourceGroupName** - resource group in which resources are going to be removed
-* **TenantId** - tenant ID for which 
+* **TenantId** - tenant ID for which the script is executed
 * **CertThumbprint** - Thumbprint of the installed certificate for the automation service
 * **ApplicationId** - AD application ID
 * **Force** (*optional*) - to enforce deletion without asking (used for automated process)
