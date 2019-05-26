@@ -7,7 +7,7 @@ The task was to create a PowerShell script to automate the process of removing r
 ### Preconditions
 
 You need to have an AD application registered with role which allows to delete resources granted.
-You also need to have certificate for Service Principal installed in order to use it's thumbprint to authenticate.
+You also need to have certificate for Service Principal installed in the host certificates store in order to use it's thumbprint to authenticate.
 
 ### Parameters
 
